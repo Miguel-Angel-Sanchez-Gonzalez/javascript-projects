@@ -22,4 +22,55 @@
 
 <body>
   <main>Welcome Typing</main>
+  <section id="game">
+    <time></time>
+    <p></p>
+    <input autofocus />
+  </section>
 </body>
+
+<script>
+  const $time = document.querySelector('time');
+  const $paragraph = document.querySelector('p');
+  const $input = document.querySelector('input');
+
+  const INITIAL_TIME = 30;
+  const TEXT = `Quiero que inventen ya la vacuna contra el racismo
+  Y que el planeta acepte que en el fondo todos somos lo mismo
+  Quiero que las municiones se conviertan en pan
+  Y que los superhéroes salgan de la serie donde están
+  Yo quiero que la avaricia nunca le gane al honor
+  Y que la única religión en el mundo se llame amor
+  Hay muchas cosas que quisiera
+  Pero por los momentos me conformo con rapear hasta que me muera`;
+
+  let words = []
+  let currentTime = INITIAL_TIME;
+
+
+  initGame();
+  initEvents();
+
+  function initGame() {
+    words = TEXT.split(" ").slice(0, 25)
+    currentTime = INITIAL_TIME;
+    $time.textContent = currentTime;
+
+    $paragraph.innerHTML = words.map((word, index) => {
+      const letters = word.split('');
+
+      return `<x-word>
+        ${letters
+        .map(letter => `<x-letter>${letter}</x-letter>`)
+        .join('')
+        }
+      </x-word>
+      `
+    }).join('')
+
+  }
+
+  function initEvents() {
+
+  }
+</script>
