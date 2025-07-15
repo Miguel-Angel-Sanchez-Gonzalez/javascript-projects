@@ -1,22 +1,50 @@
 <title>A Typing Game</title>
 <style>
   :root {
-    color-scheme: light dark;
-    --green: #00b755
-    --yellow: #daaf38
-    --red: #ca4754
-    --black: #222
-    --grey: #999
+    color-scheme: light;
+    --green: #00b755;
+    --yellow: #daaf38;
+    --red: #ca4754;
+    --black: #222;
+    --grey: #999;
     }
 
     body {
-      background-color: var(--black);
+      background: var(--black);
       font-family: monospace;
       display: grid;
       justify-content: center;
       padding: 32px;
       margin-top: 32px;
       padding: 16px;
+    }
+
+    section{
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 500px;
+    }
+
+    time {
+      color: var(--yellow);
+    }
+
+    input {
+      z-index: -999;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+
+    }
+
+    p {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px 6px;
+      color: var(--grey);
     }
 </style>
 
@@ -68,9 +96,23 @@
       `
     }).join('')
 
+    const intervalId = setInterval(() => {
+      currentTime--
+      $time.textContent = currentTime;
+
+      if (currentTime === 0) {
+        clearInterval(intervalId);
+        gameOver();
+      }
+    }, 1000)
   }
 
   function initEvents() {
 
+  }
+
+
+  function gameOver() {
+    console.log("Game Over");
   }
 </script>
