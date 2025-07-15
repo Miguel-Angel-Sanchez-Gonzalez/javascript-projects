@@ -1,12 +1,12 @@
 <title>A Typing Game</title>
 <style>
   :root {
-    color-scheme: light;
+    color-scheme: light dark;
     --green: #00b755;
     --yellow: #daaf38;
     --red: #ca4754;
     --black: #222;
-    --grey: #999;
+    --gray: #999;
     }
 
     body {
@@ -23,7 +23,7 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       max-width: 500px;
     }
 
@@ -44,7 +44,34 @@
       display: flex;
       flex-wrap: wrap;
       gap: 3px 6px;
-      color: var(--grey);
+      /* color: var(--grey); */
+      margin: 0;
+    }
+
+    x-letter {
+      color: var(--gray);
+      position: relative;
+
+      &.active::before {
+        content: '|';
+        color: var(--yellow);
+        font-size: 14px;
+        position: absolute;
+        left: -68%;
+        animation: 1s blink infinite ease-in-out;
+      }
+
+    }
+
+
+    @keyframes blink {
+        0%, 25% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
     }
 </style>
 
@@ -95,6 +122,10 @@
       </x-word>
       `
     }).join('')
+
+    const $firstWord = $paragraph.querySelector('x-word')
+    $firstWord.classList.add('active');
+    $firstWord.querySelector('x-letter').classList.add('active');
 
     const intervalId = setInterval(() => {
       currentTime--
