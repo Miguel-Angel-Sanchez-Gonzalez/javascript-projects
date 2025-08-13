@@ -61,6 +61,10 @@
         animation: 1s blink infinite ease-in-out;
       }
 
+      &.active.is-last::before {
+        left: 65%;
+      }
+
       &.correct {
         color: var(--green);
       }
@@ -180,9 +184,21 @@
 
       const isCorrect = char === letterCheck;
       $letter.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-
     });
+
+    $currentLetter.classList.remove('active', 'is-last');
+    const inputLength = $input.value.length;
+    const $nextActiveLetter = $allLetters[inputLength];
+
+    if ($nextActiveLetter){
+      $nextActiveLetter.classList.add('active');
+    }else{
+      $currentLetter.classList.add('active', 'is-last')
+      // TODO: gameover si no hay próxima palabra
+    }
+
+
+
 
 
 
