@@ -102,14 +102,17 @@
   const $input = document.querySelector('input');
 
   const INITIAL_TIME = 30;
-  const TEXT = `Quiero que inventen ya la vacuna contra el racismo
+  const TEXT = `
+  Quiero que inventen ya la vacuna contra el racismo
   Y que el planeta acepte que en el fondo todos somos lo mismo
   Quiero que las municiones se conviertan en pan
   Y que los superhéroes salgan de la serie donde están
   Yo quiero que la avaricia nunca le gane al honor
   Y que la única religión en el mundo se llame amor
   Hay muchas cosas que quisiera
-  Pero por los momentos me conformo con rapear hasta que me muera`;
+  Pero por los momentos me conformo con rapear hasta que me muera
+  `.replace(/\s+/g, ' ').trim();
+
 
   let words = []
   let currentTime = INITIAL_TIME;
@@ -164,7 +167,36 @@
   }
 
 
-  function onKeyDown(){}
+  function onKeyDown(event){
+
+    const $currentWord = $paragraph.querySelector('x-word.active')
+    const $currentLetter = $currentWord.querySelector('x-letter.active')
+
+    const { key } = event;
+    if (key === ' ') {
+      event.preventDefault();
+
+      const $nextWord = $currentWord.nextElementSibling;
+      const $nextLetter = $nextWord.querySelector('x-letter');
+
+      $currentWord.classList.remove('active');
+      $nextWord.classList.add('active');
+
+      $currentLetter.classList.remove('active');
+      $nextLetter.classList.add('active');
+
+      $input.value = '';
+
+
+    }
+
+
+
+
+
+
+
+  }
 
   function onKeyUp(){
     const $currentWord = $paragraph.querySelector('x-word.active')
