@@ -75,6 +75,12 @@
 
     }
 
+    x-word {
+      &.marked {
+        border-bottom: 2px solid var(--red);
+      }
+    }
+
 
     @keyframes blink {
         0%, 25% {
@@ -179,13 +185,18 @@
       const $nextWord = $currentWord.nextElementSibling;
       const $nextLetter = $nextWord.querySelector('x-letter');
 
-      $currentWord.classList.remove('active');
+      $currentWord.classList.remove('active', 'marked');
       $nextWord.classList.add('active');
 
       $currentLetter.classList.remove('active');
       $nextLetter.classList.add('active');
 
       $input.value = '';
+
+      const hasMissedLetters = $currentWord.querySelectorAll('x-letter:not(.correct)').length > 0;
+
+      const classToAdd = hasMissedLetters ? 'marked' : 'correct';
+      $currentWord.classList.add(classToAdd);
 
 
     }
