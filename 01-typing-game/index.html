@@ -97,8 +97,26 @@
         }
     }
 
+    #results {
+      display: none;
+    }
+
     #game {
       display: flex;
+    }
+
+    #wpm {
+      font-weight: 400;
+      margin: 0;
+      font-size: 26px;
+      color: var(--yellow);
+    }
+
+    #accuracy {
+      font-weight: 400;
+      margin: 0;
+      font-size: 24px;
+      color: var(--yellow);
     }
 </style>
 
@@ -110,9 +128,9 @@
     <input autofocus />
   </section>
   <section id="results">
-    <h2>Results</h2>
-    <p>Words per minute: <span id="wpm">0</span></p>
-    <p>Accuracy: <span id="accuracy">0</span>%</p>
+    <h1>Results</h1>
+    <h2>Words per minute: <span id="wpm">0</span></h2>
+    <h2>Accuracy: <span id="accuracy">0</span>%</h2>
     <button id="restart">Restart Game</button>
   </section>
 </body>
@@ -127,7 +145,7 @@
   const $wpm = document.querySelector('#wpm');
   const $accuracy = document.querySelector('#accuracy');
 
-  const INITIAL_TIME = 30;
+  const INITIAL_TIME = 5;
   const TEXT = `
   Quiero que inventen ya la vacuna contra el racismo
   Y que el planeta acepte que en el fondo todos somos lo mismo
@@ -300,6 +318,20 @@
 
 
   function gameOver() {
+    $game.style.display = 'none';
+    $results.style.display = 'flex';
+
+    const correctWords = $paragraph.querySelectorAll('x-word.correct').length;
+    const correctLetters = $paragraph.querySelectorAll('x-letter.correct').length;
+    const incorrectLetters = $paragraph.querySelectorAll('x-letter.incorrect').length;
+
+    const totalLetters = correctLetters + incorrectLetters;
+    const accuracy = totalLetters > 0 ? Math.round((correctLetters / totalLetters) * 100) : 0;
+
+    const wpm = Math.round((correctWords / INITIAL_TIME) * 60);
+
+    $wpm.textContent = wpm;
+    $accuracy.textContent = accuracy;
 
 
   }
