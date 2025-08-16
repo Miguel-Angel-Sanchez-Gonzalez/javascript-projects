@@ -76,8 +76,12 @@
     }
 
     x-word {
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.3s ease-in-out;
+
+
       &.marked {
-        border-bottom: 2px solid var(--red);
+        border-color: var(--red);
       }
     }
 
@@ -128,6 +132,7 @@
   initEvents();
 
   function initGame() {
+    $input.value = '';
     words = TEXT.split(" ").slice(0, 25)
     currentTime = INITIAL_TIME;
     $time.textContent = currentTime;
@@ -197,15 +202,40 @@
 
       const classToAdd = hasMissedLetters ? 'marked' : 'correct';
       $currentWord.classList.add(classToAdd);
-
+      return;
 
     }
 
+    if (key === 'Backspace') {
 
+      const $prevWord = $currentWord.previousElementSibling;
+      const $prevLetter = $currentLetter.previousElementSibling;
 
+      if (!$prevWord && !$prevLetter) {
+        event.preventDefault();
+        return
+      }
 
+      const $wordMarked = $paragraph.querySelector('x-word.marked');
+      if ($wordMarked && !$prevLetter) {
+        event.preventDefault();
+        $prevWord.classList.remove('marked');
+        $prevWord.classList.add('active');
 
+        const $letterToGo = $prevWord.querySelector('x-letter:last-child');
 
+        $currentLetter.classList.remove('active');
+        $letterToGo.classList.add('active');
+
+        $input.value = [
+          ...$prevWord.querySelectorAll('x-letter.correct, x-letter.incorrect')
+        ].map($el => {
+          return $el.classList.contains('correct') ? $el.innerText : '*';
+        }).join('');
+
+      }
+
+    }
 
   }
 
