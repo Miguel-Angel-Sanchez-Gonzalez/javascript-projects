@@ -37,6 +37,7 @@
       top: 0;
       left: 0;
       pointer-events: none;
+      opacity: 0;
 
     }
 
@@ -95,6 +96,10 @@
           opacity: 0;
         }
     }
+
+    #game {
+      display: flex;
+    }
 </style>
 
 <body>
@@ -104,12 +109,23 @@
     <p></p>
     <input autofocus />
   </section>
+  <section id="results">
+    <h2>Results</h2>
+    <p>Words per minute: <span id="wpm">0</span></p>
+    <p>Accuracy: <span id="accuracy">0</span>%</p>
+    <button id="restart">Restart Game</button>
+  </section>
 </body>
 
-<script>
+<script type="module">
+  import {words as INITIAL_WORDS} from './data.js';
   const $time = document.querySelector('time');
   const $paragraph = document.querySelector('p');
   const $input = document.querySelector('input');
+  const $game = document.querySelector('#game');
+  const $results = document.querySelector('#results');
+  const $wpm = document.querySelector('#wpm');
+  const $accuracy = document.querySelector('#accuracy');
 
   const INITIAL_TIME = 30;
   const TEXT = `
@@ -133,7 +149,10 @@
 
   function initGame() {
     $input.value = '';
-    words = TEXT.split(" ").slice(0, 25)
+    words = INITIAL_WORDS.toSorted(
+      () => Math.random() - 0.5
+    ).map(word => word.toLowerCase().trim()
+    ).slice(0, 55)
     currentTime = INITIAL_TIME;
     $time.textContent = currentTime;
 
@@ -281,6 +300,7 @@
 
 
   function gameOver() {
-    console.log("Game Over");
+
+
   }
 </script>
