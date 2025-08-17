@@ -144,8 +144,9 @@
   const $results = document.querySelector('#results');
   const $wpm = document.querySelector('#wpm');
   const $accuracy = document.querySelector('#accuracy');
+  const $restart = document.querySelector('#restart');
 
-  const INITIAL_TIME = 5;
+  const INITIAL_TIME = 30;
   const TEXT = `
   Quiero que inventen ya la vacuna contra el racismo
   Y que el planeta acepte que en el fondo todos somos lo mismo
@@ -332,6 +333,12 @@
 
     $wpm.textContent = wpm;
     $accuracy.textContent = accuracy;
+
+    $restart.addEventListener('click', () => {
+      $results.style.display = 'none';
+      $game.style.display = 'flex';
+      initGame();
+    });
 
 
   }
