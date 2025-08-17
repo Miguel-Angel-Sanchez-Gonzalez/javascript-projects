@@ -147,18 +147,7 @@
   const $restart = document.querySelector('#restart');
 
   const INITIAL_TIME = 30;
-  const TEXT = `
-  Quiero que inventen ya la vacuna contra el racismo
-  Y que el planeta acepte que en el fondo todos somos lo mismo
-  Quiero que las municiones se conviertan en pan
-  Y que los superhéroes salgan de la serie donde están
-  Yo quiero que la avaricia nunca le gane al honor
-  Y que la única religión en el mundo se llame amor
-  Hay muchas cosas que quisiera
-  Pero por los momentos me conformo con rapear hasta que me muera
-  `.replace(/\s+/g, ' ').trim();
-
-
+  let intervalId;
   let words = []
   let currentTime = INITIAL_TIME;
 
@@ -166,12 +155,17 @@
   initGame();
   initEvents();
 
+
+
   function initGame() {
+    clearInterval(intervalId);
+
     $input.value = '';
-    words = INITIAL_WORDS.toSorted(
-      () => Math.random() - 0.5
-    ).map(word => word.toLowerCase().trim()
-    ).slice(0, 55)
+    words = INITIAL_WORDS
+      .toSorted(() => Math.random() - 0.5)
+      .map(word => word.toLowerCase().trim())
+      .slice(0, 55)
+
     currentTime = INITIAL_TIME;
     $time.textContent = currentTime;
 
@@ -191,8 +185,8 @@
     $firstWord.classList.add('active');
     $firstWord.querySelector('x-letter').classList.add('active');
 
-    const intervalId = setInterval(() => {
-      currentTime--
+    intervalId = setInterval(() => {
+      currentTime--;
       $time.textContent = currentTime;
 
       if (currentTime === 0) {
@@ -307,12 +301,6 @@
       $currentLetter.classList.add('active', 'is-last')
       // TODO: gameover si no hay próxima palabra
     }
-
-
-
-
-
-
 
   }
 
