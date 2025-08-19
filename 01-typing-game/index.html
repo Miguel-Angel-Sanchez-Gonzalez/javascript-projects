@@ -118,6 +118,24 @@
       font-size: 24px;
       color: var(--yellow);
     }
+
+    button {
+      background: transparent;
+      border: 0;
+      margin-top: 32px;
+      padding: 8px;
+      opacity: .4;
+      display: inline-block;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      cursor: pointer;
+      border-radius: 16px;
+
+      &:hover {
+        background: #444;
+        opacity: 1;
+        scale: 110%;
+      }
+    }
 </style>
 
 <body>
@@ -131,7 +149,24 @@
     <h1>Results</h1>
     <h2>Words per minute: <span id="wpm">0</span></h2>
     <h2>Accuracy: <span id="accuracy">0</span>%</h2>
-    <button id="restart">Restart Game</button>
+    <button id="restart">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"
+        />
+        <path d="M20 4v5h-5" />
+      </svg>
+    </button>
   </section>
 </body>
 
@@ -197,15 +232,18 @@
   }
 
   function initEvents() {
-
     document.addEventListener('keydown', ()=> {
       $input.focus();
     });
 
     $input.addEventListener('keydown', onKeyDown);
-    $input.addEventListener('keyup', onKeyUp);
+    $input.addEventListener('input', onKeyUp);
 
-
+    $restart.addEventListener('click', () => {
+    $results.style.display = 'none';
+    $game.style.display = 'flex';
+    initGame();
+    });
 
   }
 
@@ -321,13 +359,5 @@
 
     $wpm.textContent = wpm;
     $accuracy.textContent = accuracy;
-
-    $restart.addEventListener('click', () => {
-      $results.style.display = 'none';
-      $game.style.display = 'flex';
-      initGame();
-    });
-
-
   }
 </script>
