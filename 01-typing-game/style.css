@@ -1,10 +1,22 @@
 :root {
-  color-scheme: light dark;
-  --green: #00b755;
-  --yellow: #daaf38;
-  --red: #ca4754;
-  --black: #222;
-  --gray: #999;
+  --green: #22d3ae; /* correct */
+  --red: #ff6b6b; /* incorrect */
+  --yellow: #fcd34d; /* tiempo / cursor */
+  --black: #0f0f1a; /* fondo */
+  --gray: #d1d5db; /* letras inactivas / secundarias */
+}
+
+main {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
@@ -22,11 +34,12 @@ section {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  max-width: 500px;
+  max-width: 800px;
 }
 
 time {
   color: var(--yellow);
+  font-size: 24px;
 }
 
 input {
@@ -44,6 +57,7 @@ p {
   gap: 3px 6px;
   /* color: var(--grey); */
   margin: 0;
+  font-size: 26px;
 }
 
 x-letter {
@@ -53,9 +67,9 @@ x-letter {
   &.active::before {
     content: "|";
     color: var(--yellow);
-    font-size: 14px;
+    font-size: 26px;
     position: absolute;
-    left: -68%;
+    left: -55%;
     animation: 1s blink infinite ease-in-out;
   }
 
@@ -94,6 +108,47 @@ x-word {
 
 #results {
   display: none;
+  background-color: #111127;
+  color: var(--gray);
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 32px;
+}
+
+#results h1 {
+  color: #6366f1; /* título con violeta del gradiente */
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+#results h2 {
+  font-size: 1.5rem;
+  margin: 8px 0;
+}
+
+#results span#wpm {
+  color: var(--green);
+}
+
+#results span#accuracy {
+  color: var(--green);
+}
+
+#restart {
+  margin-top: 24px;
+  padding: 12px 24px;
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#restart:hover {
+  background-color: #6366f1;
 }
 
 #game {
