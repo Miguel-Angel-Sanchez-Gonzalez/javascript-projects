@@ -1,0 +1,133 @@
+:root {
+  color-scheme: light dark;
+  --green: #00b755;
+  --yellow: #daaf38;
+  --red: #ca4754;
+  --black: #222;
+  --gray: #999;
+}
+
+body {
+  background: var(--black);
+  font-family: monospace;
+  display: grid;
+  justify-content: center;
+  padding: 32px;
+  margin-top: 32px;
+  padding: 16px;
+}
+
+section {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 500px;
+}
+
+time {
+  color: var(--yellow);
+}
+
+input {
+  z-index: -999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 6px;
+  /* color: var(--grey); */
+  margin: 0;
+}
+
+x-letter {
+  color: var(--gray);
+  position: relative;
+
+  &.active::before {
+    content: "|";
+    color: var(--yellow);
+    font-size: 14px;
+    position: absolute;
+    left: -68%;
+    animation: 1s blink infinite ease-in-out;
+  }
+
+  &.active.is-last::before {
+    left: 65%;
+  }
+
+  &.correct {
+    color: var(--green);
+  }
+
+  &.incorrect {
+    color: var(--red);
+  }
+}
+
+x-word {
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+
+  &.marked {
+    border-color: var(--red);
+  }
+}
+
+@keyframes blink {
+  0%,
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+#results {
+  display: none;
+}
+
+#game {
+  display: flex;
+}
+
+#wpm {
+  font-weight: 400;
+  margin: 0;
+  font-size: 26px;
+  color: var(--yellow);
+}
+
+#accuracy {
+  font-weight: 400;
+  margin: 0;
+  font-size: 24px;
+  color: var(--yellow);
+}
+
+button {
+  background: transparent;
+  border: 0;
+  margin-top: 32px;
+  padding: 8px;
+  opacity: 0.4;
+  display: inline-block;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 16px;
+
+  &:hover {
+    background: #444;
+    opacity: 1;
+    scale: 110%;
+  }
+}
